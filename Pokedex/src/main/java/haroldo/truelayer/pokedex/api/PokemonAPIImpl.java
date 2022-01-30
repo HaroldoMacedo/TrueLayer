@@ -11,15 +11,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import haroldo.truelayer.pokedex.entity.PokemonInfo;
 
+/**
+ * Class that implements the actual code that gets the Pokemon data from the Pokemon API.
+ * 
+ * @author Haroldo
+ *
+ */
 public class PokemonAPIImpl implements PokemonAPI {
 	private static final Logger log = LoggerFactory.getLogger(PokemonAPIImpl.class);
 
+	/**
+	 * Implements the getPokemon info based on the Pokemon name.
+	 */
 	@Override
 	public PokemonInfo getPokemonInfo(String pokemonName) {
 		log.debug("Getting info of pokemon '{}'", pokemonName);
 		return _getPokemonInfo(pokemonName);
 	}
 
+	/**
+	 * Implements the getPokemon translated info based on the Pokemon name.
+	 */
 	@Override
 	public PokemonInfo getPokemonTranslatedInfo(String pokemonName) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -32,7 +44,7 @@ public class PokemonAPIImpl implements PokemonAPI {
 		// Get the pokemon information.
 		PokemonInfo pokemon = _getPokemonInfo(pokemonName);
 
-		// If error, returns.
+		// If an error has occurred, don't translate.
 		if (!pokemon.getError().isBlank())
 			return pokemon;
 
@@ -67,6 +79,12 @@ public class PokemonAPIImpl implements PokemonAPI {
 		return pokemon;
 	}
 
+	/**
+	 * Implement the HTTP call to the Pokemon API.
+	 * 
+	 * @param pokemonName
+	 * @return
+	 */
 	private PokemonInfo _getPokemonInfo(String pokemonName) {
 		RestTemplate restTemplate = new RestTemplate();
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -115,6 +133,7 @@ public class PokemonAPIImpl implements PokemonAPI {
 			return pokemon;
 		}
 
+		//	Update pokemon info with data returned from the API.
 		pokemon.setDescription(findDescriptionInEnglish(rootNode.path("flavor_text_entries")));
 		pokemon.setHabitat(rootNode.path("habitat").path("name").asText());
 		pokemon.setLegendary(rootNode.path("is_legendary").asBoolean());
@@ -127,7 +146,7 @@ public class PokemonAPIImpl implements PokemonAPI {
 	}
 	
 	/**
-	 * Find the firs description in english.
+	 * Find the first description in English.
 	 * @param flavors
 	 * @return
 	 */

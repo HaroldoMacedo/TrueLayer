@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import haroldo.truelayer.pokedex.api.PokemonAPI;
 import haroldo.truelayer.pokedex.entity.PokemonInfo;
 
+/**
+ * Class that receives the HTTP requests and respond with the Pokemon information.
+ * 
+ * @author Haroldo
+ *
+ */
 @RestController
 public class PokemonInfoController {
 	private static final Logger log = LoggerFactory.getLogger(PokemonInfoController.class);

@@ -14,6 +14,13 @@ import org.springframework.web.client.RestTemplate;
 
 import haroldo.truelayer.pokedex.entity.PokemonInfo;
 
+/**
+ * JUnit test of the API.
+ * The test is executed by calling the HTTP endpoint and validating the response.
+ * 
+ * @author Haroldo
+ *
+ */
 @SpringBootTest
 class PokedexApplicationTests {
 	private static final String BASE_URL = "http://localhost:8080/pokemon";

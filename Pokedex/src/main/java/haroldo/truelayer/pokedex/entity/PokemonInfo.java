@@ -1,5 +1,11 @@
 package haroldo.truelayer.pokedex.entity;
 
+/**
+ * Defines the information that will be returned by this API on the HTTP response.
+ * 
+ * @author Haroldo
+ *
+ */
 public class PokemonInfo {
 
 	private String error = "";	//	If error is "", then no error has occurred.
